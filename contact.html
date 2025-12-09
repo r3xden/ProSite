@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Contact — ProSite</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <button class="hamburger" aria-label="Open menu">☰</button>
+  <nav class="sidebar" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="https://github.com/r3xden" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://discord.gg/6HKvcewn8w" target="_blank" rel="noopener">Discord</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <h1 class="page-title">Contact</h1>
+
+    <section class="card reveal">
+      <form id="contactForm" class="contact-form" onsubmit="return false;">
+        <label class="sr-only" for="name">Name</label>
+        <input id="name" name="name" placeholder="Name" required />
+
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" name="email" placeholder="Email" required />
+
+        <label class="sr-only" for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Message" required></textarea>
+
+        <div style="margin-top:12px;">
+          <button id="sendBtn" class="btn primary">Send</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card reveal">
+      <p>GitHub: <a href="https://github.com/r3xden" target="_blank" rel="noopener">r3xden</a></p>
+      <p>Telegram: <a href="https://t.me/r3xden" target="_blank" rel="noopener">@r3xden</a></p>
+      <p>Discord: rexden • <a href="https://discord.gg/6HKvcewn8w" target="_blank" rel="noopener">Server</a></p>
+      <p>Email: <a href="mailto:onlyanmolbusiness@gmail.com">onlyanmolbusiness@gmail.com</a></p>
+    </section>
+
+    <footer class="footer">© ProSite by Anmol Singhal (Rexden)</footer>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
