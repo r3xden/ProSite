@@ -1,69 +1,78 @@
 // ProSite — main.js
-// Sidebar, reveal on scroll, theme, contact simple UX
+// Sidebar, reveal on scroll, theme (persistent), contact form UX
 
 (function(){
-  // Sidebar toggle (works page-wide)
-  const hamburger = document.querySelectorAll('.hamburger');
+  // ---------- SIDEBAR / HAMBURGER ----------
+  const hamburgerButtons = Array.from(document.querySelectorAll('.hamburger'));
   const sidebar = document.querySelector('.sidebar');
-  hamburger.forEach(btn => {
+
+  hamburgerButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const open = sidebar.classList.toggle('open');
-      // aria
-      sidebar.setAttribute('aria-hidden', open ? 'false' : 'true');
+      const opened = sidebar.classList.toggle('open');
+      // aria-hidden -> false when open
+      sidebar.setAttribute('aria-hidden', opened ? 'false' : 'true');
     });
   });
 
-  // Scroll reveal for ".reveal" elements
+  // Close sidebar when clicking outside (mobile-friendly)
+  document.addEventListener('click', (e) => {
+    if (!sidebar) return;
+    if (!sidebar.classList.contains('open')) return;
+    const inside = sidebar.contains(e.target) || hamburgerButtons.some(b=>b.contains(e.target));
+    if (!inside) sidebar.classList.remove('open');
+  });
+
+  // ---------- REVEAL ON SCROLL ----------
   const reveals = Array.from(document.querySelectorAll('.reveal'));
   const revealOnScroll = () => {
     const height = window.innerHeight;
     reveals.forEach(el => {
       if (el.classList.contains('show')) return;
       const rect = el.getBoundingClientRect();
-      if (rect.top < height - 60) {
-        el.classList.add('show');
-      }
+      if (rect.top < height - 60) el.classList.add('show');
     });
   };
   window.addEventListener('scroll', revealOnScroll, {passive:true});
   window.addEventListener('resize', revealOnScroll);
-  // initial
   revealOnScroll();
 
-  // Theme toggle (light / dark)
+  // ---------- THEME (persistent) ----------
+  // Use body.light to toggle light theme. Save in localStorage.
   const darkBtn = document.getElementById('darkBtn');
   const lightBtn = document.getElementById('lightBtn');
-  if (darkBtn) {
-    darkBtn.addEventListener('click', () => {
-      document.documentElement.style.setProperty('--bg1','#000');
-      document.documentElement.style.setProperty('--bg2','#0f0f0f');
-      document.documentElement.style.setProperty('--card','rgba(255,255,255,0.06)');
-      document.body.style.color = '#fff';
-    });
-  }
-  if (lightBtn) {
-    lightBtn.addEventListener('click', () => {
-      document.documentElement.style.setProperty('--bg1','#ffffff');
-      document.documentElement.style.setProperty('--bg2','#f7f7f7');
-      document.documentElement.style.setProperty('--card','rgba(0,0,0,0.06)');
-      document.body.style.color = '#000';
-    });
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.body.classList.add('light');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.body.classList.remove('light');
+      localStorage.setItem('theme', 'dark');
+    }
   }
 
-  // Contact form UX (no backend) — shows an alert and clears fields
+  // Apply saved theme on load
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') applyTheme('light');
+  else applyTheme('dark');
+
+  if (darkBtn) darkBtn.addEventListener('click', () => applyTheme('dark'));
+  if (lightBtn) lightBtn.addEventListener('click', () => applyTheme('light'));
+
+  // ---------- SIMPLE CONTACT FORM UX ----------
   const form = document.getElementById('contactForm');
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-      if (!name || !email || !message) {
+      const name = (form.querySelector('[name="name"]') || {}).value || '';
+      const email = (form.querySelector('[name="email"]') || {}).value || '';
+      const message = (form.querySelector('[name="message"]') || {}).value || '';
+      if (!name.trim() || !email.trim() || !message.trim()) {
         alert('Please fill all fields.');
         return;
       }
-      // Friendly UX — we don't actually send from frontend.
-      alert('Thanks — message captured locally. (Add backend/email later.)');
+      // friendly UX placeholder — replace with a backend later
+      alert('Thanks — message captured. (Set up server/email later to actually send.)');
       form.reset();
     });
   }
