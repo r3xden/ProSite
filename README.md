@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">⚡ ProSite</h1>
-<p align="center"><b>Best open-source Lavalink template for learning & instant deployment</b></p>
+<p align="center"><b>A clean, ultra-minimal, personal website template</b></p>
 
 <p align="center">
   Fork → Configure → Deploy → Live
