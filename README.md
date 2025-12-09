@@ -1,3 +1,16 @@
+<p align="center">
+  <img src="assets/prosite-logo.jpg" width="180" alt="ProLava Logo" />
+</p>
+
+<h1 align="center">⚡ ProSite</h1>
+<p align="center"><b>Best open-source Lavalink template for learning & instant deployment</b></p>
+
+<p align="center">
+  Fork → Configure → Deploy → Live
+</p>
+
+---
+
 # ⚡ ProSite
 
 ProSite is a clean, modern, Apple-style personal website built with pure HTML, CSS, and JavaScript. It is designed to be fast, lightweight, fully responsive, and completely open-source. ProSite is created as a permanent digital identity system for developers, creators, and entrepreneurs who want a professional online presence without relying on heavy frameworks.
