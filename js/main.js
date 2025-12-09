@@ -73,8 +73,8 @@
       }
 
       emailjs.send(
-        "YOUR_SERVICE_ID",     // <-- YOU WILL REPLACE
-        "YOUR_TEMPLATE_ID",    // <-- YOU WILL REPLACE
+        "service_nwc17zs",     // <-- YOU WILL REPLACE, REPLACEMENT IS IMPORTANT ELSE YOU WILL NOT GET EMAIL CONTACT MESSAGES ON YOUR EMAIL
+        "template_mbhhpbd",    // <-- YOU WILL REPLACE
         {
           name: name,
           email: email,
