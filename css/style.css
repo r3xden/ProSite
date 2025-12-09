@@ -4,13 +4,26 @@
    Apple-like black & white UI
    ------------------------- */
 
+/* Theme variables */
 :root{
-  --bg1: #000;
+  --bg1: #000000;
   --bg2: #0f0f0f;
   --card: rgba(255,255,255,0.06);
   --muted: rgba(255,255,255,0.65);
+  --text: #ffffff;
+  --input-border: rgba(255,255,255,0.06);
   --white: #ffffff;
   --radius: 18px;
+}
+
+/* Light theme variables — applied by adding .light on <body> */
+body.light {
+  --bg1: #ffffff;
+  --bg2: #f7f7f7;
+  --card: rgba(0,0,0,0.06);
+  --muted: rgba(0,0,0,0.6);
+  --text: #000000;
+  --input-border: rgba(0,0,0,0.08);
 }
 
 /* Reset & base */
@@ -19,11 +32,12 @@ html,body{height:100%}
 body{
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background: linear-gradient(180deg,var(--bg1),var(--bg2));
-  color:var(--white);
+  color:var(--text);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.45;
   overflow-x:hidden;
+  transition: background 260ms ease, color 260ms ease;
 }
 
 /* Page container */
@@ -39,26 +53,26 @@ body{
 }
 .icon-btn{
   display:inline-flex;align-items:center;justify-content:center;
-  width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);
-  color:var(--white);font-weight:600;text-decoration:none;font-size:15px;
+  width:40px;height:40px;border-radius:10px;background:var(--card);
+  color:var(--text);font-weight:600;text-decoration:none;font-size:15px;
   box-shadow:0 1px 0 rgba(255,255,255,0.02) inset;
 }
 
 /* Hamburger */
 .hamburger{
   position:fixed;left:14px;top:14px;z-index:2300;
-  background:rgba(255,255,255,0.06);border:0;padding:10px 12px;border-radius:12px;color:var(--white);
-  font-size:20px;cursor:pointer;
+  background:var(--card);border:0;padding:10px 12px;border-radius:12px;color:var(--text);
+  font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.25);
 }
 
 /* Sidebar */
 .sidebar{
-  position:fixed;left:-300px;top:0;bottom:0;width:280px;padding:100px 20px;background:linear-gradient(180deg,#000,#0d0d0d);
+  position:fixed;left:-300px;top:0;bottom:0;width:280px;padding:100px 20px;background:linear-gradient(180deg,var(--bg1),var(--bg2));
   transition:left .28s cubic-bezier(.2,.9,.2,1);z-index:2100;box-shadow:2px 0 30px rgba(0,0,0,0.6);
 }
 .sidebar.open{left:0}
 .sidebar ul{list-style:none}
-.sidebar a{display:block;color:var(--white);padding:12px 0;font-size:18px;text-decoration:none;opacity:0.9}
+.sidebar a{display:block;color:var(--text);padding:12px 0;font-size:18px;text-decoration:none;opacity:0.95}
 
 /* Hero */
 .hero{text-align:center;margin-top:36px;padding:36px 8px}
@@ -66,39 +80,71 @@ body{
   font-weight:800;
   font-size:clamp(28px,8vw,56px);
   letter-spacing:0.2px;margin-bottom:8px;
+  color:var(--text);
 }
-.subtitle{display:block;font-weight:800}
+.subtitle{display:block;font-weight:800;color:var(--text)}
 .tagline{color:var(--muted);margin-top:8px;font-size:15px}
 
 /* CTAs */
 .cta-row{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap}
 .btn{
-  display:inline-block;padding:12px 18px;border-radius:12px;background:rgba(255,255,255,0.06);color:var(--white);
+  display:inline-block;padding:12px 18px;border-radius:12px;background:var(--card);color:var(--text);
   text-decoration:none;font-weight:600;border:0;font-size:15px;
+  transition:transform .15s ease, box-shadow .15s ease;
 }
-.btn.primary{background:var(--white);color:#000;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.btn:hover{transform:translateY(-3px)}
+.btn.primary{background:var(--text);color:var(--bg1);box-shadow:0 8px 24px rgba(0,0,0,0.25)}
 
 /* Sections */
-.section{margin-top:56px}
-.section-title{font-size:20px;margin-bottom:16px;font-weight:700}
+.section{margin-top:56px; padding-left:6px; padding-right:6px}
+.section-title{font-size:20px;margin-bottom:16px;font-weight:700;color:var(--text)}
 
 /* Grid & cards */
 .stack-grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:720px){.stack-grid{grid-template-columns:repeat(2,1fr)}}
-.card{background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:0 2px 0 rgba(255,255,255,0.02) inset}
+.card{background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:0 2px 0 rgba(255,255,255,0.02) inset;color:var(--text)}
 
 /* Projects */
 .projects-list{display:grid;gap:14px}
 @media(min-width:720px){.projects-list{grid-template-columns:1fr 1fr;gap:20px}}
 
 /* Small helpers */
-.page-title{font-size:32px;margin-bottom:18px;font-weight:800}
-.project h3{margin-bottom:6px}
+.page-title{font-size:32px;margin-bottom:18px;font-weight:800;color:var(--text)}
+.project h3{margin-bottom:6px;color:var(--text)}
 .small{font-size:12px;color:var(--muted)}
 
 /* Contact inputs */
-input,textarea{display:block;background:transparent;border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.06);color:var(--white)}
-textarea{resize:vertical}
+input,textarea{
+  display:block;background:transparent;border-radius:12px;padding:12px;border:1px solid var(--input-border);
+  color:var(--text);width:100%;
+}
+textarea{resize:vertical;min-height:140px}
+
+/* Center send button */
+.send-center{display:flex;justify-content:center;margin-top:16px}
+
+/* send button look */
+.send-btn{
+  background:var(--text);
+  color:var(--bg1);
+  padding:12px 22px;
+  border-radius:14px;
+  border:0;
+  font-weight:700;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Icon row for social links */
+.icon-row{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-top:18px;
+}
+.icon-btn{
+  width:46px;height:46px;border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center;text-decoration:none;
+}
+.icon-btn svg{width:22px;height:22px;fill:var(--text)}
 
 /* Footer */
 .footer{text-align:center;margin-top:70px;color:var(--muted);font-size:13px}
@@ -117,4 +163,10 @@ textarea{resize:vertical}
 /* small desktop tweak */
 @media(min-width:1000px){
   .page{padding-top:120px;padding-bottom:160px}
-  }
+}
+
+/* small visual polish for cards on mobile */
+@media (max-width:520px){
+  .card{padding:18px;border-radius:16px}
+  .page{padding:60px 16px 120px}
+        }
