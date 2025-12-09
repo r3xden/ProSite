@@ -1,5 +1,5 @@
 // ProSite — main.js
-// Sidebar, reveal on scroll, theme (persistent), contact form UX
+// Sidebar, reveal on scroll, theme (persistent), contact form with EmailJS
 
 (function(){
   // ---------- SIDEBAR / HAMBURGER ----------
@@ -9,16 +9,15 @@
   hamburgerButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const opened = sidebar.classList.toggle('open');
-      // aria-hidden -> false when open
       sidebar.setAttribute('aria-hidden', opened ? 'false' : 'true');
     });
   });
 
-  // Close sidebar when clicking outside (mobile-friendly)
+  // Close sidebar when clicking outside
   document.addEventListener('click', (e) => {
     if (!sidebar) return;
     if (!sidebar.classList.contains('open')) return;
-    const inside = sidebar.contains(e.target) || hamburgerButtons.some(b=>b.contains(e.target));
+    const inside = sidebar.contains(e.target) || hamburgerButtons.some(b => b.contains(e.target));
     if (!inside) sidebar.classList.remove('open');
   });
 
@@ -37,7 +36,6 @@
   revealOnScroll();
 
   // ---------- THEME (persistent) ----------
-  // Use body.light to toggle light theme. Save in localStorage.
   const darkBtn = document.getElementById('darkBtn');
   const lightBtn = document.getElementById('lightBtn');
 
@@ -51,7 +49,6 @@
     }
   }
 
-  // Apply saved theme on load
   const saved = localStorage.getItem('theme');
   if (saved === 'light') applyTheme('light');
   else applyTheme('dark');
@@ -59,21 +56,40 @@
   if (darkBtn) darkBtn.addEventListener('click', () => applyTheme('dark'));
   if (lightBtn) lightBtn.addEventListener('click', () => applyTheme('light'));
 
-  // ---------- SIMPLE CONTACT FORM UX ----------
+  // ---------- ✅ REAL CONTACT FORM SENDER (EmailJS) ----------
   const form = document.getElementById('contactForm');
+
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const name = (form.querySelector('[name="name"]') || {}).value || '';
-      const email = (form.querySelector('[name="email"]') || {}).value || '';
-      const message = (form.querySelector('[name="message"]') || {}).value || '';
-      if (!name.trim() || !email.trim() || !message.trim()) {
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if (!name || !email || !message) {
         alert('Please fill all fields.');
         return;
       }
-      // friendly UX placeholder — replace with a backend later
-      alert('Thanks — message captured. (Set up server/email later to actually send.)');
-      form.reset();
+
+      emailjs.send(
+        "YOUR_SERVICE_ID",     // <-- YOU WILL REPLACE
+        "YOUR_TEMPLATE_ID",    // <-- YOU WILL REPLACE
+        {
+          name: name,
+          email: email,
+          message: message
+        }
+      ).then(
+        function() {
+          alert("✅ Message sent successfully!");
+          form.reset();
+        },
+        function(error) {
+          alert("❌ Failed to send message. Try again later.");
+          console.error("EmailJS Error:", error);
+        }
+      );
     });
   }
 
