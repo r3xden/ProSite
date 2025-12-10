@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Anmol Singhal / Rexden Void, Omneon Entreprises - ProSite
+Copyright (c) 2025 Anmol Singhal / Rexden Void, Pro Labs - ProSite
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
